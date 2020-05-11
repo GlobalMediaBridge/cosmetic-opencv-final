@@ -45,7 +45,11 @@ class FaceDetectionWidget(QtWidgets.QWidget):
         self._width = 2
         self._min_size = (30, 30)
         self.timer = 0
-        self.colors = {"8809213807046": [121, 119, 237], "8809213807053": [78, 77, 222], "8809213807077": [64, 55, 252], "8809213807541": [90, 110, 228], "8809213807589": [38, 36, 186]}
+        self.colors = {"8809213807046": [121, 119, 237], 
+        "8809213807053": [78, 77, 222], 
+        "8809213807077": [64, 55, 252], 
+        "8809213807541": [90, 110, 228], 
+        "8809213807589": [3, 1, 133]}
 
     def initUI(self, main_widget):
         self.main_widget = main_widget
@@ -77,11 +81,14 @@ class FaceDetectionWidget(QtWidgets.QWidget):
         tar_color[:, :, 0] = b
         tar_color[:, :, 1] = g
         tar_color[:, :, 2] = r
+        print(tar_color[0, 0, :])
         
         image_hsv = cv2.cvtColor(image, cv2.COLOR_BGR2HSV)
         tar_hsv = cv2.cvtColor(tar_color, cv2.COLOR_BGR2HSV)
         
-        image_hsv[:, :, 0:2] = tar_hsv[:, :, 0:2]
+        image_hsv[:, :, 0:2] = tar_hsv[:, :, 0:2] # V(밝기)값은 그대로, H, S만 교체
+        image_hsv[:, :, 2] += tar_hsv[:,:,2] # np.array 연산
+        print(tar_hsv[0, 0, :])
         
         masked = cv2.cvtColor(image_hsv, cv2.COLOR_HSV2BGR)
 
