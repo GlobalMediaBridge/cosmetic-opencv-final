@@ -87,7 +87,7 @@ class FaceDetectionWidget(QtWidgets.QWidget):
         tar_hsv = cv2.cvtColor(tar_color, cv2.COLOR_BGR2HSV)
         
         image_hsv[:, :, 0:2] = tar_hsv[:, :, 0:2] # V(밝기)값은 그대로, H, S만 교체
-        image_hsv[:, :, 2] += tar_hsv[:,:,2] # np.array 연산
+        # image_hsv[:, :, 2] += tar_hsv[:,:,2] # np.array 연산
         print(tar_hsv[0, 0, :])
         
         masked = cv2.cvtColor(image_hsv, cv2.COLOR_HSV2BGR)
